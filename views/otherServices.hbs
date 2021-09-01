@@ -1,0 +1,68 @@
+<head>
+	<script src="https://checkout.stripe.com/checkout.js" defer></script>
+	<script>
+            //var stripePublicKey = $"{{{stripePublicKey}}}"
+	</script>
+	<script src="js/store.js" defer></script>
+</head>
+
+{{>banner}}
+{{!-- register --}}
+
+<body class="login">
+	<h1 class="title_login">Manage Service</h1>
+	<div class="info"><a>
+			<p> Made with <i class="fa fa-heart"></i> EC_2006_03 </p>
+		</a></div>
+	<div class="container_lg">
+		<div class="menu">
+			<a href="#manage" class="btn-Manage active">
+				<h2>Service</h2>
+			</a>
+		</div>
+
+		{{#if message}}
+		<div class="{{type}}">
+			<i><strong class="col-md_lg">{{message}}</strong></i>
+		</div>
+		{{/if}}
+
+		{{!-- Manage --}}
+		<div class="enRegister active-section">
+			<div class="contact-form">
+				<div style="margin: 5%;">
+					<form action="/paypals/payIn" method="POST">
+                        <label>Water Bill</label>
+						<input id="ammountCharge" name="money" placeholder="0.0$">
+                        <label>Electric Bill</label>
+						<input id="ammountCharge" name="money" placeholder="0.0$">
+						<div style="margin: 5%;">
+							<button class="btn btn-primary btn-purchase" type="button">Stripe</button>
+						</div>
+						<div style="margin: 5%;">
+						<button class="btn btn-primary btn-purchase">PayPal</button>
+						</div>
+					</form>
+				</div>
+		
+			</div>
+		</div>
+	</div>
+
+	</div>
+	<script>
+		$('.btn-Manage').click(function () {
+			$('.connection').addClass('remove-section');
+			$('.enRegister').removeClass('active-section');
+			$('.btn-Manage').removeClass('active');
+			$('.btn-Create').addClass('active');
+		});
+
+		$('.btn-Create').click(function () {
+			$('.connection').removeClass('remove-section');
+			$('.enRegister').addClass('active-section');
+			$('.btn-Manage').addClass('active');
+			$('.btn-Create').removeClass('active');
+		});
+	</script>
+</body>

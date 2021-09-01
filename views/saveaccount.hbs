@@ -1,0 +1,111 @@
+{{>banner}}
+    {{!-- register --}}
+
+<body class="login">
+	<h1 class="title_login">Manage Saving Account</h1>
+	<div class="info"><a>
+			<p> Made with <i class="fa fa-heart"></i> EC_2006_03 </p>
+		</a></div>
+	<div class="container_lg">
+		<div class="menu">
+			<a href="#create" class="btn-Create">
+				<h2>Create</h2>
+			</a>
+			<a href="#manage" class="btn-Manage active">
+				<h2>Manage</h2>
+			</a>
+		</div>
+		{{!-- Login --}}
+		<div class="connection">			
+			<div class="contact-form">
+				<form class="row login_form" action="/interestrate" method="POST">
+					{{#if message}}
+					<div class="{{type}}">
+						<i><strong class="col-md_lg">{{message}}</strong></i>
+					</div>
+					{{/if}}
+					<label>Period (Month) </label>
+                   	<select name ="interestrateList" id ="interestrateSelection">
+					<option>
+					Select
+            		</option>
+					{{#each listinterestrate}}
+            		<option>
+					{{dataValues.period}}
+            		</option>
+        			{{/each}}
+    				</select>
+					<label>Interest Rate (%)</label>
+					<input type="Rate" name="Rate" placeholder="Rate" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Rate'" readonly id="Rate">
+					<label>Money</label>
+					<input type="Money" name="Money" placeholder="Money" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Money'" readonly id="Money">
+					<input class="submit" value="Create" type="submit">                    
+				</form>
+			</div>
+		</div>
+		{{!-- Manage --}}
+		<div class="enRegister active-section">
+			<div class="contact-form">
+				<form class="row login_form" action="/accounts/register" method="POST">
+					<label>Saving Account List</label>
+                   	<select name ="CardNumberList" id ="cardSelection">
+					<option>
+					Select
+            		</option>
+    				</select>
+					<label>Deposits</label>
+					<input type="Deposits" name="Deposits" placeholder="Deposits" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Deposits'" readonly id="Deposits">
+
+					<label>Account opening date</label>
+					<div class="input-append date" data-date-format="dd-mm-yyyy">
+					<input size="16" type="date" id="datePicker" name="createdAt" readonly>
+					</div>
+					<label>Period</label>
+					<input type="Period" name="Period" placeholder="Period" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Period'" readonly id="Period">
+					<input class="submit" style="text-align: center;color:rgb(17, 6, 87)" value="Lock" id="lockCard">
+
+					
+				</form>
+					<input class="submit" style="text-align: center;color:rgb(17, 6, 87)" value="Expirate" id="Expirate">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+
+		const format = function date2str(x, y) {
+			var z = {
+				M: x.getMonth() + 1,
+				d: x.getDate(),
+				h: x.getHours(),
+				m: x.getMinutes(),
+				s: x.getSeconds()
+			};
+			y = y.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
+				return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
+			});
+
+			return y.replace(/(y+)/g, function(v) {
+				return x.getFullYear().toString().slice(-v.length)
+			});
+		}
+		$('.btn-Manage').click(function () {
+			$('.connection').addClass('remove-section');
+			$('.enRegister').removeClass('active-section');
+			$('.btn-Manage').removeClass('active');
+			$('.btn-Create').addClass('active');
+		});
+
+		$('.btn-Create').click(function () {
+			$('.connection').removeClass('remove-section');
+			$('.enRegister').addClass('active-section');
+			$('.btn-Manage').addClass('active');
+			$('.btn-Create').removeClass('active');
+		});
+	</script>
+</body>

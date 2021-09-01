@@ -1,0 +1,104 @@
+{{>banner}}
+    {{!-- register --}}
+
+<body class="login">
+	<h1 class="title_login">Manage Interestrate</h1>
+	<div class="info"><a>
+			<p> Made with <i class="fa fa-heart"></i> EC_2006_03 </p>
+		</a></div>
+	<div class="container_lg">
+		<div class="menu">
+			<a href="#create" class="btn-Create">
+				<h2>Create</h2>
+			</a>
+			<a href="#manage" class="btn-Manage active">
+				<h2>Manage</h2>
+			</a>
+		</div>
+		{{!-- Login --}}
+		<div class="connection">			
+			<div class="contact-form">
+				<form class="row login_form" action="/interestrate" method="POST">
+					{{#if message}}
+					<div class="{{type}}">
+						<i><strong class="col-md_lg">{{message}}</strong></i>
+					</div>
+					{{/if}}
+                    <label>Period (Month)</label>
+                    <input type="Period" name="Period" placeholder="Period" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Period'"  id="Period">
+					<label>Interest Rate (%)</label>
+					<input type="Rate" name="Rate" placeholder="Rate" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Rate'"  id="Rate">
+					<input class="submit" value="Create" type="submit">                    
+			</div>
+			</form>
+
+		</div>
+		{{!-- Manage --}}
+		<div class="enRegister active-section">
+			<div class="contact-form">
+				<form class="row login_form" action="/interestrate" method="POST">
+					<label>Period (Month) </label>
+                   	<select name ="interestrateList" id ="interestrateSelection">
+					<option>
+					Select
+            		</option>
+					{{#each listinterestrate}}
+            		<option>
+					{{dataValues.period}}
+            		</option>
+        			{{/each}}
+    				</select>
+					<label>Interest Rate (%)</label>
+					<input type="DRate" name="DRate" placeholder="DRate" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'DRate'" readonly id="DRate">
+					<input class="submit" style="text-align: center;color:rgb(17, 6, 87)" value="Remove" id="Remove">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+
+		$('.btn-Manage').click(function () {
+			$('.connection').addClass('remove-section');
+			$('.enRegister').removeClass('active-section');
+			$('.btn-Manage').removeClass('active');
+			$('.btn-Create').addClass('active');
+		});
+
+		$('.btn-Create').click(function () {
+			$('.connection').removeClass('remove-section');
+			$('.enRegister').addClass('active-section');
+			$('.btn-Manage').addClass('active');
+			$('.btn-Create').removeClass('active');
+		});
+
+		let period = $('#interestrateSelection').val() || ""
+		console.log(period)
+
+		$('#interestrateSelection').change(async function() {
+			try {
+				period = $('#interestrateSelection').val()|| ""
+				const response = await fetch("interestrate/api/getInterestrateByPeriod/" + period)
+				const data = await response.json()
+				$('#DRate').val(data.period[0].interestrate)
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		$('#Remove').click(async function() {
+			try {
+				period = $('#interestrateSelection').val()|| ""
+				const response = await fetch("/interestrate/api/removeinterestrate/" + period)
+				//Reload page
+				location.reload();
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+	</script>
+</body>

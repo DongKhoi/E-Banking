@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>E-Banking</title>
+<link rel="icon" href="/images/e.png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{{!-- css --}}
+<link href="/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="/css/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/css/font-awesome.css" rel="stylesheet"> 
+<link href="/css/stylelogin.css" rel="stylesheet" >
+{{!-- css --}}
+
+<link href="css/templatemo-real-dynamic.css" rel="stylesheet" />
+
+<!-- js --> 
+<script src="/js/jquery-2.2.3.min.js"></script>
+<!-- web-fonts -->
+<link href="//fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!-- //web-fonts --> 
+
+<!-- MailChimp-->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:white; clear:left; font:14px Helvetica,Arial,sans-serif; width: 1000px; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<!-- MailChimp-->
+</head>
+<body> 
+
+	<!-- header -->
+      {{> header}}
+	<!-- //header -->  
+
+
+    {{!-- body --}}
+    {{{body}}}
+    {{!--//body  --}}
+
+    
+    <!--footer-->
+    {{> footer}}
+    <!--//footer-->
+
+
+
+	{{!-- <!-- modal-sign -->
+	<div class="modal bnr-modal fade" id="myModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<img src="images/logo.png" alt="logo"/>
+				</div>
+				<div class="modal-body">
+					<img src="images/modal.jpg" class="img-responsive" alt="image">
+					<p>Fusce et congue nibh, ut ullamcorper magna. Donec ac massa tincidunt, fringilla sapien vel, tempus massa. Vestibulum felis leo, tincidunt sit amet tristique accumsan. In vitae dapibus metus. Donec nec massa non nulla mattis aliquam egestas et mi.</p>
+				</div>
+			</div>
+		</div>
+
+		</div>
+	</div>
+	<!-- modal-sign -->
+	<div class="modal bnr-modal fade" id="myModal1" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<img src="images/logo.png" alt="logo"/>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+				</div> 
+				<div class="modal-body modal-spa">
+					<p>E-Banking's email newsletter provides subscribers with helpful articles on important issues in the banking industry, as well as news about events and more! To sign up for the newsletter, fill the below form.</p>
+					<form class=" wthree-subsribe" action="#" method="post"> 
+						<input type="text" name="name" placeholder="Your Name" required="">
+						<input type="email" name="email" placeholder="your Email" required="">
+						<input type="submit" value="SignUp"> 
+						<div class="clearfix"></div>
+					</form>
+				</div> 
+			</div>
+		</div>
+	</div>
+	<!-- //modal-sign -->    
+	 --}}
+	<!-- banner Slider starts Here -->
+	<script src="/js/responsiveslides.min.js"></script>
+	{{!-- <script src="js/password.js"></script>	 --}}
+	<script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+		  // Slideshow 3
+		  $("#slider3").responsiveSlides({
+			auto:true,
+			pager:false,
+			nav: true,
+			speed: 500,
+			namespace: "callbacks",
+			before: function () {
+			  $('.events').append("<li>before event fired.</li>");
+			},
+			after: function () {
+			  $('.events').append("<li>after event fired.</li>");
+			}
+		  });
+	
+		});
+	</script>
+	<script src="/js/SmoothScroll.min.js"></script>
+	<!-- smooth-scrolling-of-move-up -->
+	<script type="text/javascript" src="/js/move-top.js"></script>
+	<script type="text/javascript" src="/js/easing.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			/*var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};*/
+			
+			
+			$().UItoTop({ easingType: 'easeOutQuart' });
+			
+		});
+	</script>
+	<!-- //smooth-scrolling-of-move-up -->  
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/bootstrap.js"></script>
+   
+
+</body>
+</html>

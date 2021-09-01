@@ -1,0 +1,122 @@
+<!-- banner -->
+<div class="banner">
+	<div class="header-nav">
+		<!-- header-three -->
+		<nav class="navbar navbar-default">
+			<!-- top-nav -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+					{{#unless isAdmin}}
+					<li><a href="/about">About</a></li>
+					{{/unless}}
+					{{#unless isAdmin}}
+					<li><a href="/services">Services</a></li>
+					{{/unless}}
+					<li><a href="/trading">Trading</a></li>
+					{{#unless isAdmin}}
+					<li><a href="/contact">Contact Us</a></li>
+					{{/unless}}
+					{{#if isAdmin}}
+					<li><a href="/selectrequest">Request</a></li>
+					{{/if}}
+					{{#if isLoggedIn}}
+					<li><a href="/accounts/register"  data-toggle="dropdown">{{userName}}<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="/accounts/logout" class="active">Logout</a></li>
+						</ul>
+					</li>
+					 <a href="/users/infoUser"><img class="img-avatar" src="/images/account.png" alt="image"></a>
+					{{else}}
+					<li><a href="/accounts/register" class="active">Login</a></li>
+					{{/if}}
+				</ul>
+				<div class="clearfix"> </div>
+			</div>
+		</nav>
+	</div>
+
+	<!-- banner-text -->
+	<!-- banner -->
+	<div class="container">
+		<div class="banner-text agileits-w3layouts">
+			<div id="top" class="callbacks_container">
+				<ul class="rslides" id="slider3">
+					<li>
+						<div class="banner-textagileinfo">
+							<h6>Welcome To E-Banking</h6>
+							<h3>Safe,secure and convenient banking</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+							<div class="agileits-banner-bot">
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>01</h5>
+									<h4>convenient</h4>
+									<p>Consectetur adipiscing elit, Nullam in neque malesuadaLorem</p>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>02</h5>
+									<h4>secure</h4>
+
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>03</h5>
+									<h4>reliable</h4>
+
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="banner-textagileinfo">
+							<h6>Welcome To E-Banking</h6>
+							<h3>Safe,secure and convenient banking</h3>
+							<p>Lorem ipsum dolor sit amet, neque neque malesua.</p>
+							<div class="agileits-banner-bot">
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>01</h5>
+									<h4>convenient</h4>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>02</h5>
+									<h4>secure</h4>
+									<p>Consectetur adipiscing elit, Nullam in neque malesuadaLorem </p>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>03</h5>
+									<h4>reliable</h4>
+
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="banner-textagileinfo">
+							<h6>Welcome To E-Banking</h6>
+							<h3>Safe,secure and convenient banking</h3>
+							<p>Lorem ipsum dolor sit amet, </p>
+							<div class="agileits-banner-bot">
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>01</h5>
+									<h4>convenient</h4>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>02</h5>
+									<h4>secure</h4>
+
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4 w3l-bb-grid1">
+									<h5>03</h5>
+									<h4>reliable</h4>
+									<p>Consectetur adipiscing elit, Nullam in neque malesuadaLorem</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

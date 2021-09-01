@@ -1,0 +1,19 @@
+<body>
+    <h1>Chuyển tiền nội bộ</h1>
+    <form class="form_transfer" action="/transfers/getFullname" method="POST">
+        <label>Thông tin người thụ hưởng</label>
+        <input class="input_transfer" type="number" name="cardNumber" value="{{cardNumberNN}}"
+            placeholder="Nhập số tài khoản" onfocus="this.placeholder = ''"
+            onblur="this.placeholder = 'Nhập số tài khoản'">
+        <input class="input_transfer" type="text" placeholder="Tên người thụ hưởng" value="{{fullNameNN}}" disabled>
+        <button class="kiemtra" value="submit">Kiểm tra thẻ</button>
+    </form>
+
+    <form class="form_transfer" action="/transfers/Send" method="POST">
+        <label>Thông tin người gửi</label>
+         <input class="input_transfer" type="text"  value="{{fullName}}" disabled>
+        <input class="input_transfer" type="text" name="cardNumberNG" value={{cardNumber}} Mycardnumber>
+        <input class="input_transfer" type="text" name="moneySend" value="{{moneySend}}" placeholder="0.0$">
+        <button class="kiemtra" value="submit">Send</button>       
+    </form>
+</body>

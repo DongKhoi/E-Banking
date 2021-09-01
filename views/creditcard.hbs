@@ -1,0 +1,115 @@
+
+    {{>banner}}
+    {{#unless isAdmin}}
+     <div class="tm-page-col-right">
+        <div class="tm-gallery-item">
+           <figure class="effect-bubba">
+                <img src="images/pay.png" alt="Gallery item" class="img-fluid" />
+                <a href = "/paycard">
+                <figcaption>
+                    <h2>Pay Card</h2>
+                    <p>Manage Pay Card</p>
+                </figcaption>
+                </a>
+            </figure>
+        </div>
+     </div>
+    {{/unless}}
+     {{#unless isAdmin}}
+     <div class="tm-page-col-right">
+        <div class="tm-gallery-item">
+           <figure class="effect-bubba">
+                <img src="images/visa.png" alt="Gallery item" class="img-fluid" />
+                <a href = "/visacard">
+                <figcaption>
+                    <h2>Visa/Master Card</h2>
+                    <p>Manage Visa/Master Card</p>
+                </figcaption>
+                </a>
+            </figure>
+        </div>
+     </div>
+     {{/unless}}
+     {{#if isAdmin}}
+      <div class="tm-page-col-right">
+        <div class="tm-gallery-item">
+           <figure class="effect-bubba">
+                <img src="images/expirated.png" alt="Gallery item" class="img-fluid" />
+                <a href = "/expirate">
+                <figcaption>
+                    <h2>Manage Expirate</h2>
+                    <p>Manage Expirate Card</p>
+                </figcaption>
+                </a>
+            </figure>
+        </div>
+     </div>
+     {{/if}}
+    <script src="js/parallax.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="slick/slick.min.js"></script>
+    <script src="js/tooplate-script.js"></script>
+    <script>        
+        $(document).ready(function () {
+            /* Isotope Gallery */            
+            var $gallery = $(".tm-gallery").isotope({
+                itemSelector: ".tm-gallery-item",
+                filter: '.category-1'
+                // layoutMode: "fitRows"
+            });
+            // layout Isotope after each image loads
+            $gallery.imagesLoaded().progress(function () {
+                $gallery.isotope("layout");
+            });
+
+            $(".filters-button-group").on("click", "a", function () {
+                var filterValue = $(this).attr("data-filter");
+                $gallery.isotope({ filter: filterValue });
+            });
+
+            /* Categories */
+            $(".tabgroup > div").hide();
+            $(".tabgroup > div:first-of-type").show();
+            $(".tabs a").click(function (e) {
+                e.preventDefault();
+                var $this = $(this),
+                    tabgroup = "#" + $this.parents(".tabs").data("tabgroup"),
+                    others = $this
+                        .closest("li")
+                        .siblings()
+                        .children("a"),
+                    target = $this.attr("href");
+                others.removeClass("active");
+                $this.addClass("active");
+
+                // Scroll to tab content (for mobile)
+                if ($(window).width() < 992) {
+                    $("html, body").animate(
+                        {
+                            scrollTop: $("#tmGallery").offset().top
+                        },
+                        200
+                    );
+                }
+            });
+
+            // Magnific Pop up
+            $('.tm-gallery').magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: { enabled: true }
+            });
+
+            // Testimonials carousel
+            $('.tm-carousel').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+        });
+
+    </script> 

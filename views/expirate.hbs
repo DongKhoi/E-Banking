@@ -1,0 +1,103 @@
+{{>banner}}
+    {{!-- register --}}
+
+<body class="login">
+	<h1 class="title_login">Manage Expirate</h1>
+	<div class="info"><a>
+			<p> Made with <i class="fa fa-heart"></i> EC_2006_03 </p>
+		</a></div>
+	<div class="container_lg">
+		<div class="menu">
+			<a href="#create" class="btn-Create">
+				<h2>Create</h2>
+			</a>
+			<a href="#manage" class="btn-Manage active">
+				<h2>Manage</h2>
+			</a>
+		</div>
+		{{!-- Login --}}
+		<div class="connection">			
+			<div class="contact-form">
+				<form class="row login_form" action="/expirate" method="POST">
+					{{#if message}}
+					<div class="{{type}}">
+						<i><strong class="col-md_lg">{{message}}</strong></i>
+					</div>
+					{{/if}}
+                    <label>Month</label>
+                    <input type="months" name="Month" placeholder="Month" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Month'"  id="Month">
+					<label>Fee</label>
+					<input type="fee" name="Fee" placeholder="Fee" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Fee'"  id="Fee">
+					<input class="submit" value="Create" type="submit">                    
+			</div>
+			</form>
+
+		</div>
+		{{!-- Manage --}}
+		<div class="enRegister active-section">
+			<div class="contact-form">
+				<form class="row login_form" action="/expirate" method="POST">
+					<label>Expiration List (Month) </label>
+                   	<select name ="ExpirateList" id ="expirateSelection">
+					<option>
+					Select
+            		</option>
+					{{#each listExpirate}}
+            		<option>
+					{{dataValues.timeExpiration}}
+            		</option>
+        			{{/each}}
+    				</select>
+					<label>Fee</label>
+					<input type="fee" name="Fee" placeholder="Fee" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Fee'" readonly id="DisplayFee">
+					<input class="submit" style="text-align: center;color:rgb(17, 6, 87)" value="Remove" id="Remove">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+
+		$('.btn-Manage').click(function () {
+			$('.connection').addClass('remove-section');
+			$('.enRegister').removeClass('active-section');
+			$('.btn-Manage').removeClass('active');
+			$('.btn-Create').addClass('active');
+		});
+
+		$('.btn-Create').click(function () {
+			$('.connection').removeClass('remove-section');
+			$('.enRegister').addClass('active-section');
+			$('.btn-Manage').addClass('active');
+			$('.btn-Create').removeClass('active');
+		});
+
+		let month = $('#expirateSelection').val() || ""
+		console.log(month)
+
+		$('#expirateSelection').change(async function() {
+			try {
+				month = $('#expirateSelection').val()|| ""
+				const response = await fetch("/expirate/api/getExpirateByTime/" + month)
+				const data = await response.json()
+				$('#DisplayFee').val(data.timeExpiration[0].feeOfExpiration)
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		$('#Remove').click(async function() {
+			try {
+				const response = await fetch("/expirate/api/removeExpirate/" + month)
+				//Reload page
+				location.reload();
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+	</script>
+</body>

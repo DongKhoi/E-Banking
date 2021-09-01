@@ -1,0 +1,42 @@
+ <div class="header-nav">
+        <!-- header-three -->
+        <nav class="navbar navbar-default">
+            <!-- top-nav -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/trading">Trading</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/accounts/register" class="active">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+<body>
+    <div class="form_info_user">
+
+        <form class="infoUser-form-sendmail" action="/accounts/author" method="POST">
+            <div class="alert_message">
+                {{#if message}}
+                <div class="{{type}}">
+                    <i><strong>{{message}}</strong></i>
+                </div>
+                {{/if}}
+            </div>
+            <div class="form_info">
+
+                <div class="row_info">
+                    <label class="info">OTP</label>
+                    <input class="input_info" type="text" name="otp" placeholder="Mã OTP"
+                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mã OTP'">
+
+                </div>
+                <input class="Send" value="Send" type="submit">
+            </div>
+
+        </form>
+    </div>
+
+</body>

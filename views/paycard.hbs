@@ -1,0 +1,173 @@
+{{>banner}}
+    {{!-- register --}}
+
+<body class="login">
+	<h1 class="title_login">Manage Paycard</h1>
+	<div class="info"><a>
+			<p> Made with <i class="fa fa-heart"></i> EC_2006_03 </p>
+		</a></div>
+	<div class="container_lg">
+		<div class="menu">
+			<a href="#create" class="btn-Create">
+				<h2>Create</h2>
+			</a>
+			<a href="#manage" class="btn-Manage active">
+				<h2>Manage</h2>
+			</a>
+		</div>
+		{{!-- Login --}}
+		<div class="connection">			
+			<div class="contact-form">
+				<form class="row login_form" action="/paycard" method="POST">
+					{{#if message}}
+					<div class="{{type}}">
+						<i><strong class="col-md_lg">{{message}}</strong></i>
+					</div>
+					{{/if}}
+					<input class="submit" value="Create" type="submit">                    
+			</div>
+			</form>
+
+		</div>
+		{{!-- Manage --}}
+		<div class="enRegister active-section">
+			<div class="contact-form">
+				<form class="row login_form" action="/accounts/register" method="POST">
+					<label>Card Number List</label>
+                   	<select name ="CardNumberList" id ="cardSelection">
+					<option>
+					Select
+            		</option>
+        			{{#each listCard}}
+            		<option>
+					{{dataValues.cardnumber}}
+            		</option>
+        			{{/each}}
+    				</select>
+					<label>The original amount of the card</label>
+					<input type="amount" name="Amount" placeholder="Amount" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Amount'" readonly id="parentaccount">
+
+					<label>Date Create Card</label>
+					<div class="input-append date" data-date-format="dd-mm-yyyy">
+					<input size="16" type="date" id="datePicker" name="createdAt" readonly>
+					</div>
+					<label>Date Expiration</label>
+					<div class="input-append date" data-date-format="dd-mm-yyyy">
+					<input size="16" type="date" id="datePickerEx" name="createdAt" readonly>
+					</div>
+					<input class="submit" style="text-align: center;color:rgb(17, 6, 87)" value="Lock" id="lockCard">
+
+					
+				</form>
+				<form class="row login_form" action="/expirate" method="POST">
+					<label>Expiration List (Month) </label>
+                   	<select name ="ExpirateList" id ="expirateSelection">
+					<option>
+					Select
+            		</option>
+					{{#each listExpirate}}
+            		<option>
+					{{dataValues.timeExpiration}}
+            		</option>
+        			{{/each}}
+    				</select>
+					<label>Fee</label>
+					<input type="fee" name="Fee" placeholder="Fee" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Fee'" readonly id="DisplayFee">
+					<input class="submit" style="text-align: center;color:rgb(17, 6, 87)" value="Expirate" id="Expirate">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+
+		const format = function date2str(x, y) {
+			var z = {
+				M: x.getMonth() + 1,
+				d: x.getDate(),
+				h: x.getHours(),
+				m: x.getMinutes(),
+				s: x.getSeconds()
+			};
+			y = y.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
+				return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
+			});
+
+			return y.replace(/(y+)/g, function(v) {
+				return x.getFullYear().toString().slice(-v.length)
+			});
+		}
+		$('.btn-Manage').click(function () {
+			$('.connection').addClass('remove-section');
+			$('.enRegister').removeClass('active-section');
+			$('.btn-Manage').removeClass('active');
+			$('.btn-Create').addClass('active');
+		});
+
+		$('.btn-Create').click(function () {
+			$('.connection').removeClass('remove-section');
+			$('.enRegister').addClass('active-section');
+			$('.btn-Manage').addClass('active');
+			$('.btn-Create').removeClass('active');
+		});
+
+		let cardNumber = $('#cardSelection').val() || ""
+		console.log(cardNumber)
+		$('#cardSelection').change(async function() {
+			try {
+				cardNumber = $('#cardSelection').val() || ""
+				const response = await fetch("paycard/api/getCardByCardNumber/" + cardNumber)
+				const data = await response.json()
+				$('#parentaccount').val(data.cardNumber.parentaccount)
+				console.log(new Date(data.cardNumber.createdAt))
+				$('#datePicker').val(format( new Date(data.cardNumber.createdAt), 'yyyy-MM-dd'))
+				$('#datePickerEx').val(format( new Date(data.cardNumber.expirationdate), 'yyyy-MM-dd'))
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		$('#lockCard').click(async function() {
+			try {
+				cardNumber = $('#cardSelection').val() || ""
+				const result = await fetch("/paycard/api/lockCardByCardNumber/" + cardNumber)
+				alert('Locking sucessfully !')
+				location.reload();
+			}
+			catch(err) {
+				alert('Locking not sucessfully !')
+			}
+			location.reload()
+		})
+		let month = $('#expirateSelection').val() || ""
+		$('#expirateSelection').change(async function() {
+			try {
+				month = $('#expirateSelection').val()|| ""
+				const response = await fetch("/expirate/api/getExpirateByTime/" + month)
+				const data = await response.json()
+				console.log(data.timeExpiration[0].feeOfExpiration)
+				$('#DisplayFee').val(data.timeExpiration[0].feeOfExpiration)
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		$('#Expirate').click(async function() {
+			try {
+				const month = $('#expirateSelection').val()|| ""
+				amount = $('#DisplayFee').val()|| ""
+				const numberCard = $('#cardSelection').val()
+				const result = await fetch("/accounts/api/releaseBalance/" + amount + '/numberCard/' + numberCard + '/month/' + month)
+				console.log(result)
+				alert('Expiration sucessfully !')
+				location.reload();
+			}
+			catch(err) {
+				alert('Expiration not sucessfully !')
+			}
+			location.reload()
+		})
+	</script>
+</body>

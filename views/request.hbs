@@ -1,0 +1,121 @@
+{{>banner}}
+{{!-- Confirm Paycard --}}
+<div class="col-md-7 w3l_contact_form">
+	<h4 style="color:blanchedalmond">Confirm PayCard</h4> 
+	<form action="/paycard/request" method="post">
+        <select name ="CardNumberList" id ="cardSelection">
+			<option>Select</option>
+        	{{#each listCard}}
+            <option>
+				{{dataValues.cardnumber}}		
+            </option>
+			<option>
+				({{dataValues.status}})
+            </option>
+        	{{/each}}
+    	</select>
+		<input class="submit" value="Remove" type="submit" id="RemoveCard" style="position: absolute;left: 0;"></br></br></br>
+		<input class="submit" type="submit" value="Confirm" style="position: absolute;left: 0;" id="ConfirmButton"></br></br></br></br></br></br>
+	</form>
+</div>
+{{!-- Confirm Visacard --}}
+<div class="col-md-7 w3l_contact_form">
+	<h4 style="color:blanchedalmond">Confirm VisaCard</h4> 
+	<form action="/visacard/request" method="post">
+        <select name ="visaCardNumberList" id ="visacardSelection">
+			<option>Select</option>
+        	{{#each listVisaCard}}
+            <option>
+				{{dataValues.cardnumber}}
+            </option>
+			<option>
+				({{dataValues.status}})
+            </option>
+        	{{/each}}
+    	</select>
+		<input class="submit" value="Remove" type="submit" style="position: absolute;left: 0;" id="RemoveVisaCard"></br></br></br>
+		<input class="submit" type="submit" value="Confirm" style="position: absolute;left: 0;" id="ConfirmVisaButton"></br></br></br></br></br></br>
+	</form>
+</div>
+<script>
+	{{#if isSuccess}}
+		alert(isSuccess ? "Comfirm succesfully !" : "Confim faillure !")
+	{{/if}}
+    let cardNumber;
+		console.log(cardNumber)
+		$('#cardSelection').change(async function() {
+			try {
+				cardNumber = $('#cardSelection').val() || ""
+				const response = await fetch("paycard/api/getCardByCardNumber/" + cardNumber)
+				const data = await response.json()
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+        	$('#ConfirmButton').click(async function() {
+			try {
+				cardNumber = $('#cardSelection').val() || ""
+				const response = await fetch("paycard/api/CardStatus/" + cardNumber)
+				//Reload page
+				location.reload();
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		$('#RemoveCard').click(async function() {
+			try {
+				const response = await fetch("/paycard/api/removeCardByCardNumber/" + cardNumber)
+				//Reload page
+				location.reload();
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		//Visa event
+			$('#visacardSelection').change(async function() {
+			try {
+				cardNumber = $('#visacardSelection').val() || ""
+				const response = await fetch("visacard/api/getVisaCardByCardNumber/" + cardNumber)
+				const data = await response.json()
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+        	$('#ConfirmVisaButton').click(async function() {
+			try {
+				cardNumber = $('#visacardSelection').val() || ""
+				const response = await fetch("visacard/api/VisaCardStatus/" + cardNumber)
+				//Reload page
+				location.reload();
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+		$('#lockVisaCard').click(async function() {
+			try {
+				cardNumber = $('#visacardSelection').val() || ""
+				const result = await fetch("/visacard/api/lockVisaCardByCardNumber/" +cardNumber)
+				alert('Locking sucessfully !')
+			}
+			catch(err) {
+				alert('Locking not sucessfully !')
+			}
+			location.reload()
+		})
+			$('#RemoveVisaCard').click(async function() {
+			try {
+				cardNumber = $('#visacardSelection').val() || ""
+				const response = await fetch("/visacard/api/removeVisaCardByCardNumber/" + cardNumber)
+				//Reload page
+				location.reload();
+			}
+			catch (err) {
+				console.log(err)
+			}
+		})
+</script>
